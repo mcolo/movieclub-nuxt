@@ -16,6 +16,10 @@ export default {
       const body = JSON.stringify({ query: this.search })
       fetch('/.netlify/functions/autocomplete', {
         method: 'post',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': 'true'
+        },
         body
       })
         .then((response) => {
