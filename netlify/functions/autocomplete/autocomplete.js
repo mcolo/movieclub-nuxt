@@ -1,22 +1,24 @@
 const fs = require('fs')
+const trie = fs.readFileSync('./autocomplete_trie.json', 'utf8')
+const movieData = fs.readFileSync('./autocomplete_dataset.json', 'utf-8')
 
 exports.handler = async function(event, context) {
   // your server-side functionality
-  if (!event.body.query) return
+  const query = JSON.parse(event.body).query
+  if (!query) return
 
   try {
-    const trie = fs.readFileSync('./autocomplete_trie.json', 'utf8')
     const ids = suggestions(event.body.query)
 
     if (ids) {
-      const movieData = getMovieData(ids)
+      const results = getMovieData(ids)
       return {
         statusCode: 200,
-        body: JSON.stringify(movieData)
+        body: JSON.stringify(results)
       }
     } else {
       return {
-        statusCode: 404,
+        statusCode: 400,
         body: 'Failed to find movie data'
       }
     }

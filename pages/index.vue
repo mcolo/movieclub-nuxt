@@ -13,7 +13,17 @@ export default {
   },
   methods: {
     autocomplete() {
-      alert(this.search)
+      const body = JSON.stringify({ query: this.search })
+      fetch('/.netlify/functions/autocomplete', {
+        method: 'post',
+        body
+      })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log('Request failed', error)
+        })
     }
   }
 }
