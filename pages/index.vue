@@ -17,8 +17,8 @@ export default {
       fetch('/.netlify/functions/autocomplete', {
         method: 'post',
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': 'true'
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         },
         body
       })
